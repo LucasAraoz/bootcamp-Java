@@ -10,9 +10,7 @@ import com.Integrador2.bo.Producto;
 import com.Integrador2.dao.IOperacionesDB;
 
 public class OperacionesProducto implements IOperacionesDB {
-	// Operaciones con base de datos
-
-	// Variables que se van a usar en la implementacion
+	
 	String sql;
 	Scanner entrada = new Scanner(System.in);
 
@@ -23,25 +21,25 @@ public class OperacionesProducto implements IOperacionesDB {
 
 		try {
 
-			System.out.println("Especifique el Nombre del producto: ");
+			System.out.println("Especificar producto");
 			String nombre = entrada.nextLine();
 			if (nombre.isEmpty())
-				throw new MyException("No puedes agregar un nombre en blanco!");
+				throw new MyException("Casilla de nombre vacía");
 
-			System.out.println("Ingrese una descripcion del mismo: ");
+			System.out.println("Ingresar descripción");
 			String des = entrada.nextLine();
 			if (des.isEmpty())
-				throw new MyException("No puedes dejar la descripcion vacia!");
+				throw new MyException("Descripción vacía");
 
-			System.out.println("Ingrese el precio: ");
+			System.out.println("Ingresar precio: ");
 			int precio = entrada.nextInt();
 			if (precio <= 0)
-				throw new MyException("El Precio no puede ser negativo!");
+				throw new MyException("Precio negativo");
 
-			System.out.println("Ingrese Stock actual: ");
+			System.out.println("Ingresar stock");
 			int stock = entrada.nextInt();
 			if (stock <= 0)
-				throw new MyException("El Stock no puede ser negativo!");
+				throw new MyException("Stock negativo");
 
 			Producto nuevoProducto = new Producto(nombre, des, precio, stock);
 
@@ -79,7 +77,7 @@ public class OperacionesProducto implements IOperacionesDB {
 					conexion.close();
 				}
 			} catch (Exception e) {
-				System.out.println("Error cerrando base de datos. " + e.getMessage());
+				System.out.println("Error al cerrar" + e.getMessage());
 			}
 		}
 
@@ -91,7 +89,7 @@ public class OperacionesProducto implements IOperacionesDB {
 		Connection conexion = ConectionDB.conectar();
 		try {
 
-			System.out.println("Ingrese el id del producto a eliminar:");
+			System.out.println("Ingresar ID a eliminar:");
 			int id = entrada.nextInt();
 			// seteamos el sql para insert
 			sql = "delete from productos where codigo = ?;";
@@ -106,7 +104,7 @@ public class OperacionesProducto implements IOperacionesDB {
 		} catch (Exception e) {
 			System.out.println("Error en Delete " + e.getMessage());
 		} finally {
-			System.out.println("Exito al eliminar producto!");
+			System.out.println("Producto eliminado");
 			try {
 				// cerrando conexion
 				if (stmt != null) {
@@ -116,7 +114,7 @@ public class OperacionesProducto implements IOperacionesDB {
 					conexion.close();
 				}
 			} catch (Exception e) {
-				System.out.println("Error cerrando base de datos. " + e.getMessage());
+				System.out.println("Error al cerrar" + e.getMessage());
 			}
 		}
 
@@ -129,7 +127,7 @@ public class OperacionesProducto implements IOperacionesDB {
 
 		try {
 			// pedimos id del producto
-			System.out.println("Ingrese el codigo del producto a modificar:");
+			System.out.println("Ingresar código:");
 			int codigo = entrada.nextInt();
 
 			System.out.println("1-Modificar Stock. \n 2-Modificar precio");
@@ -137,12 +135,12 @@ public class OperacionesProducto implements IOperacionesDB {
 
 			if (operacion == 1) {
 				try {
-					// Query de nuevo stock
+				
 					sql = "UPDATE productos set stock = (?) where codigo = (?);";
-					// pedimos nuevo stock
+				
 					System.out.println("Ingrese nuevo stock:");
 
-					// PreparedStatement del stock y codigo
+					
 					stmt = conexion.prepareStatement(sql);
 					stmt.setInt(1, entrada.nextInt());
 					stmt.setInt(2, codigo);
@@ -151,11 +149,11 @@ public class OperacionesProducto implements IOperacionesDB {
 					System.out.println("Se modifico stock \n");
 
 				} catch (Exception e) {
-					// Exception no esperada
+					
 					System.out.println("Error al intentar modificar Stock. " + e.getMessage());
 				} finally {
 					try {
-						// cerrando conexion
+					
 						if (stmt != null) {
 							stmt.close();
 						}
@@ -163,35 +161,34 @@ public class OperacionesProducto implements IOperacionesDB {
 							conexion.close();
 						}
 					} catch (Exception e) {
-						System.out.println("Error cerrando base de datos. " + e.getMessage());
+						System.out.println("Error al cerrar" + e.getMessage());
 					}
 				}
 
 			} else if (operacion == 2) {
-				// Modificacion precio
+				
 				try {
-					// Query de modificar precio
+					
 					sql = "UPDATE productos set precio = (?) where codigo = (?);";
 					stmt = conexion.prepareStatement(sql);
-					System.out.println("Ingrese nuevo precio:");
+					System.out.println("Ingresar precio");
 					int nuevoPrecio = entrada.nextInt();
 					if (nuevoPrecio < 0)
-						throw new MyException("No puedes asignar valor negativo a los productos!");
+						throw new MyException("Valor negativo");
 
-					// PreparedStatement con sets de precio y codigo
 
 					stmt.setInt(1, nuevoPrecio);
 					stmt.setInt(2, codigo);
 
 					stmt.execute();
-					System.out.println("Se modifico precio. \n");
+					System.out.println("Precio modificado. \n");
 
 				} catch (Exception e) {
-					// Exception por si ocurre un error con el query
-					System.out.println("Error al intentar modificar precio. " + e.getMessage());
+					
+					System.out.println("No se pudo modificar " + e.getMessage());
 				}
 				try {
-					// cerrando conexion
+					
 					if (stmt != null) {
 						stmt.close();
 					}
@@ -199,16 +196,16 @@ public class OperacionesProducto implements IOperacionesDB {
 						conexion.close();
 					}
 				} catch (Exception e) {
-					System.out.println("Error cerrando base de datos. " + e.getMessage());
+					System.out.println("Error al cerrar" + e.getMessage());
 				}
-				// excepcion por si se ingresa valor incorrecto
+				
 			} else {
-				throw new MyException("Porfavor ingrese un valor numerico acorde a las opciones. \n");
+				throw new MyException("Valor incorrecto \n");
 			}
 		} catch (Exception e) {
-			System.out.println("Error en modify " + e.getMessage());
+			System.out.println("Error al modificar" + e.getMessage());
 		} finally {
-			System.out.println("Exito al modificar producto!");
+			System.out.println("Modificado con éxito");
 			try {
 				// cerrando conexion
 				if (stmt != null) {
@@ -218,7 +215,7 @@ public class OperacionesProducto implements IOperacionesDB {
 					conexion.close();
 				}
 			} catch (Exception e) {
-				System.out.println("Error cerrando base de datos. " + e.getMessage());
+				System.out.println("Error al cerrar" + e.getMessage());
 			}
 		}
 	}
@@ -244,12 +241,12 @@ public class OperacionesProducto implements IOperacionesDB {
 			}
 
 		} catch (Exception e) {
-			System.out.println("No fue posible listar");
+			System.out.println("Error de listado");
 			System.out.println(e.getMessage());
 		} finally {
 			System.out.println("\n");
 			try {
-				// cerrando conexion
+				
 				if (stmt != null) {
 					stmt.close();
 				}
@@ -257,7 +254,7 @@ public class OperacionesProducto implements IOperacionesDB {
 					conexion.close();
 				}
 			} catch (Exception e) {
-				System.out.println("Error cerrando base de datos. " + e.getMessage());
+				System.out.println("Error al cerrar" + e.getMessage());
 			}
 
 		}
