@@ -4,11 +4,11 @@ import com.Integrador2.bo.MyException;
 import com.Integrador2.bo.Producto;
 
 public interface IOperacionesDB {
-	void add() throws MyException;// suma productos
+	void add() throws MyException;
 
-	void remove(); // resta
+	void remove();
 
-	void modify();// quiere modificar stock precio
+	void modify();
 
 	void list();
 
