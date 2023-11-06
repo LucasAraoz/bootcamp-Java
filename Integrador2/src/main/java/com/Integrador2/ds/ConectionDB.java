@@ -1,4 +1,4 @@
-package com.Integrador2.ds;
+xpackage com.Integrador2.ds;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,9 +16,9 @@ public class ConectionDB {
 	public static Connection conectar() {
 		try {
 			c = DriverManager.getConnection("jdbc:mysql://localhost/almacen", "root", "");
-			// System.out.println("¡Exito al conectarse con la Base de Datos almacen!");
+			// System.out.println("Conexión establecida");
 		} catch (Exception e) {
-			System.out.println("Error al conectar con base de datos. " + e.getMessage());
+			System.out.println("La conexíon no pudo realizarse" + e.getMessage());
 		}
 		return c;
 	}
