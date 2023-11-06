@@ -12,7 +12,6 @@ public class ConectionDB {
 
 	static Connection c = null;
 
-	// Genera coneccion con almacen en local host y retorna la misma conexion
 	public static Connection conectar() {
 		try {
 			c = DriverManager.getConnection("jdbc:mysql://localhost/almacen", "root", "");
