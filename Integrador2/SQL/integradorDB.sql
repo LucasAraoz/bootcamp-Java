@@ -11,9 +11,9 @@ create table productos(
  unique(codigo)
 );
 
-INSERT INTO productos (nombre, descripcion, precio, stock) values ("Guitarra Electrica Lespaul", "Guitarra de la marca Gibson color negro", 112000, 70),
-("Armonica Golden Cup", "Armonica diatonica C colores: azul, amarillo.", 5000, 40),
-("Guitarra acustica", "Guitarra acustica de cuerdas de nilon", 120000, 30);
+INSERT INTO productos (nombre, descripcion, precio, stock) values ("Paquete de diamantes mensual", "Paquete de diamantes subscripción", 112000, 70),
+("Paquete VIP", "Paquete Súper VIP", 5000, 40),
+("Pase de Batalla", "Súper Pase de Batalla ", 120000, 30);
 select *from productos;
 
 
