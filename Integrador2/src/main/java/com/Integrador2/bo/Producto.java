@@ -1,16 +1,15 @@
 package com.Integrador2.bo;
 
-//SUPERCLASE
+
 public class Producto {
-	// ATRIBUTOS
+	
 
 	private String nombre;
 	private String descripcion;
 	private int precio;
 	private int stock;
 
-	// METODOS
-	// CONSTRUCTOR CON Y SIN SOBRECARGA
+	
 	public Producto() {
 
 	}
@@ -22,7 +21,7 @@ public class Producto {
 		this.precio = precio;
 		this.stock = stock;
 	}
-	// SETTERS Y GETTERS
+	
 
 	public String getNombre() {
 		return nombre;
@@ -56,7 +55,7 @@ public class Producto {
 		this.stock = stock;
 	}
 
-	// ToString
+	
 	@Override
 	public String toString() {
 		return "Producto [nombre=" + nombre + ", descripcion=" + descripcion + ", precio=" + precio + ", stock=" + stock
